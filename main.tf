@@ -330,30 +330,13 @@ resource "aws_security_group" "vpc-web" {
 #  value = aws_instance.web_server.public_dns
 #}
 
-module "server" {
-source = "./server"
-ami = data.aws_ami.ubuntu.id
-subnet_id = aws_subnet.public_subnets["public_subnet_3"].id
-security_groups = [
-aws_security_group.vpc-ping.id,
-aws_security_group.ingress-ssh.id,
-aws_security_group.vpc-web.id
-]
-}
-
-###################
-
-provider "vault" {
-address = "http://127.0.0.1:8200"
-token = "hvs.I6Y6v4BGRS2FUsH190srEnRm"
-}
-
-data "vault_generic_secret" "phone_number" {
-    path = "secret/app"
-}
-
-output "phone_number" {
-value = data.vault_generic_secret.phone_number
-sensitive = true
-}
-
+#module "server" {
+#source = "./server"
+#ami = data.aws_ami.ubuntu.id
+#subnet_id = aws_subnet.public_subnets["public_subnet_3"].id
+#security_groups = [
+#aws_security_group.vpc-ping.id,
+#aws_security_group.ingress-ssh.id,
+#aws_security_group.vpc-web.id
+#]
+#}
